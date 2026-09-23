@@ -1,495 +1,578 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DREAM ESPORTS - India</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DREAM ESPORTS</title>
 
-  <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <style>
-    :root {
-      --bg: #0a0a12;
-      --card: rgba(22,22,37,.78);
-      --gold: #f39c12;
-      --text: #e2e8f0;
-      --muted: #a4b0be;
-      --green: #2ed573;
-      --red: #ff4757;
-    }
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #080808;
+            color: #fff;
+            min-height: 100vh;
+            padding-bottom: 90px;
+        }
 
-    body {
-      background:
-        radial-gradient(circle at 50% 0%, #1a1a3a 0%, #0a0a12 70%);
-      color: var(--text);
-      min-height: 100vh;
-      padding-bottom: 80px;
-    }
+        .header {
+            padding: 22px 18px;
+            background: linear-gradient(135deg, #111111, #17130a);
+            border-bottom: 1px solid #2d2614;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 18px;
-      background: rgba(10,10,18,.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(243,156,18,.25);
-    }
+        .logo {
+            font-size: 21px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: #f5c542;
+        }
 
-    .logo {
-      color: var(--gold);
-      font-size: 20px;
-      font-weight: 800;
-      letter-spacing: 1px;
-    }
+        .wallet {
+            background: #161616;
+            border: 1px solid #3a3018;
+            padding: 8px 13px;
+            border-radius: 20px;
+            color: #f5c542;
+            font-weight: 700;
+        }
 
-    .wallet {
-      border: 1px solid var(--gold);
-      border-radius: 20px;
-      padding: 7px 13px;
-      font-size: 13px;
-    }
+        .container {
+            padding: 18px;
+        }
 
-    .container {
-      max-width: 600px;
-      margin: auto;
-      padding: 15px;
-    }
+        .hero {
+            padding: 22px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, #17130a, #0e0e0e);
+            border: 1px solid #332914;
+            margin-bottom: 24px;
+        }
 
-    .banner {
-      padding: 22px;
-      border-radius: 16px;
-      margin-bottom: 18px;
-      background: linear-gradient(135deg,#24243e,#302b63);
-      border: 1px solid rgba(255,255,255,.1);
-    }
+        .hero small {
+            color: #aaa;
+        }
 
-    .banner h2 {
-      font-size: 19px;
-      margin-bottom: 6px;
-    }
+        .hero h1 {
+            margin-top: 8px;
+            font-size: 26px;
+        }
 
-    .banner p {
-      color: var(--muted);
-      font-size: 12px;
-    }
+        .hero p {
+            margin-top: 8px;
+            color: #999;
+            font-size: 13px;
+        }
 
-    .section-title {
-      font-size: 16px;
-      font-weight: 700;
-      margin: 18px 0 12px;
-    }
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 13px;
+        }
 
-    #tournamentList {
-      min-height: 50px;
-    }
+        .section-title h2 {
+            font-size: 19px;
+        }
 
-    .match-card {
-      background: var(--card);
-      border: 1px solid rgba(243,156,18,.22);
-      border-radius: 16px;
-      padding: 16px;
-      margin-bottom: 15px;
-      box-shadow: 0 4px 20px rgba(0,0,0,.4);
-    }
+        .status-text {
+            color: #f5c542;
+            font-size: 12px;
+        }
 
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      align-items: center;
-      margin-bottom: 13px;
-    }
+        #tournamentList {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
 
-    .match-title {
-      font-size: 15px;
-      font-weight: 700;
-    }
+        .tournament-card {
+            background: #111;
+            border: 1px solid #292929;
+            border-radius: 17px;
+            padding: 17px;
+        }
 
-    .tag {
-      background: var(--gold);
-      color: #000;
-      padding: 4px 8px;
-      border-radius: 6px;
-      font-size: 10px;
-      font-weight: 800;
-    }
+        .tournament-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
 
-    .details {
-      display: grid;
-      grid-template-columns: repeat(3,1fr);
-      gap: 8px;
-      background: rgba(0,0,0,.25);
-      padding: 10px;
-      border-radius: 10px;
-    }
+        .game-name {
+            color: #f5c542;
+            font-size: 17px;
+            font-weight: 800;
+        }
 
-    .detail {
-      text-align: center;
-    }
+        .mode {
+            color: #aaa;
+            font-size: 12px;
+            margin-top: 5px;
+        }
 
-    .detail span {
-      display: block;
-      color: var(--muted);
-      font-size: 10px;
-      margin-bottom: 4px;
-    }
+        .badge {
+            padding: 5px 9px;
+            border-radius: 20px;
+            background: #1c1c1c;
+            color: #f5c542;
+            font-size: 10px;
+            font-weight: 700;
+            height: fit-content;
+        }
 
-    .detail strong {
-      font-size: 13px;
-    }
+        .details {
+            margin-top: 16px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
 
-    .status {
-      margin-top: 12px;
-      color: var(--green);
-      font-size: 12px;
-      font-weight: 700;
-    }
+        .detail-box {
+            background: #181818;
+            border-radius: 10px;
+            padding: 10px;
+        }
 
-    .loading,
-    .empty,
-    .error {
-      text-align: center;
-      padding: 25px 10px;
-      color: var(--muted);
-      font-size: 13px;
-    }
+        .detail-label {
+            display: block;
+            color: #777;
+            font-size: 10px;
+            margin-bottom: 4px;
+        }
 
-    .error {
-      color: var(--red);
-    }
+        .detail-value {
+            color: #eee;
+            font-size: 12px;
+            font-weight: 600;
+        }
 
-    .tab {
-      display: none;
-    }
+        .description {
+            margin-top: 12px;
+            color: #999;
+            font-size: 12px;
+            line-height: 1.5;
+        }
 
-    .tab.active {
-      display: block;
-    }
+        .join-btn {
+            width: 100%;
+            margin-top: 15px;
+            padding: 12px;
+            border: none;
+            border-radius: 11px;
+            background: linear-gradient(135deg, #f5c542, #d99f12);
+            color: #111;
+            font-weight: 800;
+            cursor: pointer;
+        }
 
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 200;
-      display: flex;
-      justify-content: space-around;
-      padding: 10px 0;
-      background: rgba(10,10,18,.96);
-      border-top: 1px solid rgba(243,156,18,.2);
-    }
+        .loading,
+        .empty,
+        .error {
+            padding: 25px;
+            text-align: center;
+            border-radius: 15px;
+            background: #111;
+            border: 1px solid #292929;
+            color: #999;
+        }
 
-    .nav-item {
-      color: var(--muted);
-      text-align: center;
-      font-size: 11px;
-      cursor: pointer;
-    }
+        .error {
+            color: #ff8a8a;
+        }
 
-    .nav-item i {
-      display: block;
-      font-size: 18px;
-      margin-bottom: 4px;
-    }
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 72px;
+            background: rgba(10, 10, 10, 0.97);
+            border-top: 1px solid #292929;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 20;
+        }
 
-    .nav-item.active {
-      color: var(--gold);
-    }
-  </style>
+        .nav-item {
+            color: #777;
+            text-align: center;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .nav-item.active {
+            color: #f5c542;
+        }
+
+        .nav-icon {
+            font-size: 20px;
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 18px;
+        }
+
+        .modal-box {
+            width: 100%;
+            max-width: 400px;
+            background: #151515;
+            border: 1px solid #39301a;
+            border-radius: 18px;
+            padding: 22px;
+        }
+
+        .modal-box h2 {
+            color: #f5c542;
+            margin-bottom: 8px;
+        }
+
+        .modal-box p {
+            color: #888;
+            font-size: 12px;
+            margin-bottom: 16px;
+        }
+
+        .input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            background: #0d0d0d;
+            color: white;
+            outline: none;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .cancel-btn,
+        .confirm-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .cancel-btn {
+            background: #222;
+            color: #aaa;
+            border: 1px solid #333;
+        }
+
+        .confirm-btn {
+            background: #f5c542;
+            color: #111;
+            border: none;
+        }
+    </style>
 </head>
 
 <body>
 
-<header>
-  <div class="logo">
-    <i class="fa-solid fa-crown"></i>
-    DREAM ESPORTS
-  </div>
-
-  <div class="wallet">
-    <i class="fa-solid fa-wallet"></i>
-    ₹ <span id="balance">150</span>
-  </div>
-</header>
-
-<div class="container">
-
-  <!-- HOME -->
-  <div id="home-tab" class="tab active">
-
-    <div class="banner">
-      <h2>
-        <i class="fa-solid fa-trophy"></i>
-        DREAM ESPORTS
-      </h2>
-      <p>Official tournament platform</p>
-    </div>
-
-    <div class="section-title">
-      <i class="fa-solid fa-fire"></i>
-      Available Tournaments
-    </div>
-
-    <div id="tournamentList">
-      <div class="loading">
-        Loading tournaments...
-      </div>
-    </div>
-
-  </div>
-
-  <!-- MY MATCHES -->
-  <div id="matches-tab" class="tab">
-
-    <div class="section-title">
-      <i class="fa-solid fa-gamepad"></i>
-      My Matches
-    </div>
-
-    <div class="match-card">
-      <div class="empty">
-        No joined matches yet.
-      </div>
-    </div>
-
-  </div>
-
-  <!-- WALLET -->
-  <div id="wallet-tab" class="tab">
-
-    <div class="section-title">
-      <i class="fa-solid fa-wallet"></i>
-      My Wallet
-    </div>
-
-    <div class="match-card">
-      <div class="detail">
-        <span>CURRENT BALANCE</span>
-        <strong style="font-size:28px;color:var(--gold)">
-          ₹150
-        </strong>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- SUPPORT -->
-  <div id="support-tab" class="tab">
-
-    <div class="section-title">
-      <i class="fa-solid fa-headset"></i>
-      Help & Support
-    </div>
-
-    <div class="match-card">
-      <p style="color:var(--muted);font-size:13px;">
-        Need help? Contact Dream eSports support.
-      </p>
-    </div>
-
-  </div>
-
-</div>
-
-<!-- NAVIGATION -->
-<div class="bottom-nav">
-
-  <div class="nav-item active"
-       onclick="switchTab('home-tab', this)">
-    <i class="fa-solid fa-house"></i>
-    Home
-  </div>
-
-  <div class="nav-item"
-       onclick="switchTab('matches-tab', this)">
-    <i class="fa-solid fa-gamepad"></i>
-    My Matches
-  </div>
-
-  <div class="nav-item"
-       onclick="switchTab('wallet-tab', this)">
-    <i class="fa-solid fa-wallet"></i>
-    Wallet
-  </div>
-
-  <div class="nav-item"
-       onclick="switchTab('support-tab', this)">
-    <i class="fa-solid fa-headset"></i>
-    Support
-  </div>
-
-</div>
-
-
-<!-- FIREBASE -->
-<script type="module">
-
-  import { initializeApp }
-    from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-
-  import {
-    getFirestore,
-    collection,
-    getDocs
-  } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
-
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyAeZnZ4tNZ7qYc0jfRdBq4J_Eahop37Qn4",
-    authDomain: "dream-esports-51780.firebaseapp.com",
-    projectId: "dream-esports-51780",
-    storageBucket: "dream-esports-51780.firebasestorage.app",
-    messagingSenderId: "959473187247",
-    appId: "1:959473187247:web:11c11f1a5f810dc4fcd75a",
-    measurementId: "G-37FE1WPFXG"
-  };
-
-
-  const app = initializeApp(firebaseConfig);
-
-  const db = getFirestore(app);
-
-
-  async function loadTournaments() {
-
-    const list = document.getElementById("tournamentList");
-
-    try {
-
-      const snapshot =
-        await getDocs(collection(db, "tournaments"));
-
-      if (snapshot.empty) {
-
-        list.innerHTML =
-          '<div class="empty">No tournaments available.</div>';
-
-        return;
-      }
-
-
-      list.innerHTML = "";
-
-
-      snapshot.forEach((doc) => {
-
-        const data = doc.data();
-
-        const name =
-          data.name || "Free Fire Tournament";
-
-        const type =
-          data.type || "TOURNAMENT";
-
-        const prize =
-          data.prize || data.prizePool || "—";
-
-        const entry =
-          data.entryFee || data.entry || "—";
-
-        const status =
-          data.status || "UPCOMING";
-
-
-        const card = document.createElement("div");
-
-        card.className = "match-card";
-
-
-        card.innerHTML = `
-
-          <div class="card-header">
-
-            <span class="match-title">
-              ${name}
-            </span>
-
-            <span class="tag">
-              ${type}
-            </span>
-
-          </div>
-
-
-          <div class="details">
-
-            <div class="detail">
-              <span>PRIZE</span>
-              <strong>${prize}</strong>
+    <header class="header">
+        <div class="logo">DREAM ESPORTS</div>
+        <div class="wallet">₹<span id="balance">150</span></div>
+    </header>
+
+    <main class="container">
+
+        <section class="hero">
+            <small>WELCOME TO</small>
+            <h1>Dream eSports</h1>
+            <p>Compete in tournaments and showcase your gaming skills.</p>
+        </section>
+
+        <div class="section-title">
+            <h2>Available Tournaments</h2>
+            <span class="status-text" id="firebaseStatus">Loading...</span>
+        </div>
+
+        <div id="tournamentList">
+            <div class="loading">Loading tournaments...</div>
+        </div>
+
+    </main>
+
+    <nav class="bottom-nav">
+        <div class="nav-item active" onclick="switchTab(this)">
+            <span class="nav-icon">⌂</span>
+            Home
+        </div>
+
+        <div class="nav-item" onclick="switchTab(this)">
+            <span class="nav-icon">⚔</span>
+            My Matches
+        </div>
+
+        <div class="nav-item" onclick="switchTab(this)">
+            <span class="nav-icon">◉</span>
+            Wallet
+        </div>
+
+        <div class="nav-item" onclick="switchTab(this)">
+            <span class="nav-icon">?</span>
+            Support
+        </div>
+    </nav>
+
+    <div class="modal" id="joinModal">
+        <div class="modal-box">
+            <h2>Join Tournament</h2>
+            <p id="selectedTournament">Tournament</p>
+
+            <input
+                class="input"
+                id="ffName"
+                type="text"
+                placeholder="Free Fire In-Game Name"
+            >
+
+            <input
+                class="input"
+                id="ffUid"
+                type="text"
+                placeholder="Free Fire UID"
+            >
+
+            <div class="modal-actions">
+                <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+                <button class="confirm-btn" onclick="confirmJoin()">Continue</button>
             </div>
+        </div>
+    </div>
 
-            <div class="detail">
-              <span>ENTRY</span>
-              <strong>${entry}</strong>
-            </div>
+    <!-- Firebase -->
+    <script type="module">
 
-            <div class="detail">
-              <span>STATUS</span>
-              <strong>${status}</strong>
-            </div>
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 
-          </div>
+        import {
+            getFirestore,
+            collection,
+            getDocs
+        } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
+        const firebaseConfig = {
+            apiKey: "AIzaSyAeZnZ4tNZ7qYc0jfRdBq4J_Eahop37Qn4",
+            authDomain: "dream-esports-51780.firebaseapp.com",
+            projectId: "dream-esports-51780",
+            storageBucket: "dream-esports-51780.firebasestorage.app",
+            messagingSenderId: "959473187247",
+            appId: "1:959473187247:web:11c11f1a5f810dc4fcd75a",
+            measurementId: "G-37FE1WPFXG"
+        };
 
-          <div class="status">
-            <i class="fa-solid fa-circle"></i>
-            ${status}
-          </div>
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-        `;
+        async function loadTournaments() {
 
+            const list = document.getElementById("tournamentList");
+            const status = document.getElementById("firebaseStatus");
 
-        list.appendChild(card);
+            try {
 
-      });
+                status.innerText = "Connecting...";
 
-    } catch (error) {
+                const snapshot = await getDocs(collection(db, "tournaments"));
 
-      console.error(error);
+                list.innerHTML = "";
 
-      list.innerHTML =
-        '<div class="error">Unable to load tournaments.</div>';
+                if (snapshot.empty) {
+                    list.innerHTML = `
+                        <div class="empty">
+                            No tournaments available
+                        </div>
+                    `;
 
-    }
+                    status.innerText = "0 tournaments";
+                    return;
+                }
 
-  }
+                let count = 0;
 
+                snapshot.forEach((doc) => {
 
-  loadTournaments();
+                    const data = doc.data();
+                    count++;
 
+                    const name = data.Name || "Tournament";
+                    const game = data.Game || "Free Fire";
+                    const mode = data.Mode || "1 VS 1";
+                    const date = data.Date || "Not set";
+                    const time = data.Time || "Not set";
+                    const maxPlayers = data.Maxplayers ?? "-";
+                    const players = data.Players ?? 0;
+                    const entryFee = data.entryfee ?? 0;
+                    const tournamentStatus = data["Status "] || data.Status || "Open";
+                    const description =
+                        data.Discription ||
+                        "Join this tournament and compete with other players.";
 
-  window.switchTab = function(tabId, element) {
+                    const card = document.createElement("div");
+                    card.className = "tournament-card";
 
-    document
-      .querySelectorAll(".tab")
-      .forEach(tab => tab.classList.remove("active"));
+                    card.innerHTML = `
+                        <div class="tournament-top">
 
-    document
-      .querySelectorAll(".nav-item")
-      .forEach(item => item.classList.remove("active"));
+                            <div>
+                                <div class="game-name">${escapeHTML(name)}</div>
+                                <div class="mode">
+                                    ${escapeHTML(game)} • ${escapeHTML(mode)}
+                                </div>
+                            </div>
 
-    document
-      .getElementById(tabId)
-      .classList.add("active");
+                            <div class="badge">
+                                ${escapeHTML(tournamentStatus)}
+                            </div>
 
-    element.classList.add("active");
+                        </div>
 
-  };
+                        <div class="details">
 
-</script>
+                            <div class="detail-box">
+                                <span class="detail-label">DATE</span>
+                                <span class="detail-value">
+                                    ${escapeHTML(date)}
+                                </span>
+                            </div>
+
+                            <div class="detail-box">
+                                <span class="detail-label">TIME</span>
+                                <span class="detail-value">
+                                    ${escapeHTML(time)}
+                                </span>
+                            </div>
+
+                            <div class="detail-box">
+                                <span class="detail-label">PLAYERS</span>
+                                <span class="detail-value">
+                                    ${players} / ${maxPlayers}
+                                </span>
+                            </div>
+
+                            <div class="detail-box">
+                                <span class="detail-label">ENTRY</span>
+                                <span class="detail-value">
+                                    ${entryFee === 0 ? "FREE" : "₹" + entryFee}
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <div class="description">
+                            ${escapeHTML(description)}
+                        </div>
+
+                        <button class="join-btn">
+                            JOIN TOURNAMENT
+                        </button>
+                    `;
+
+                    card.querySelector(".join-btn").addEventListener(
+                        "click",
+                        () => openJoinModal(name)
+                    );
+
+                    list.appendChild(card);
+                });
+
+                status.innerText = count + " tournament" + (count > 1 ? "s" : "");
+
+            } catch (error) {
+
+                console.error("Firestore error:", error);
+
+                list.innerHTML = `
+                    <div class="error">
+                        Unable to load tournaments
+                    </div>
+                `;
+
+                status.innerText = "Firebase error";
+            }
+        }
+
+        function escapeHTML(value) {
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        window.openJoinModal = function(tournamentName) {
+
+            document.getElementById("selectedTournament").innerText =
+                tournamentName;
+
+            document.getElementById("joinModal").style.display = "flex";
+        };
+
+        window.closeModal = function() {
+
+            document.getElementById("joinModal").style.display = "none";
+        };
+
+        window.confirmJoin = function() {
+
+            const name = document.getElementById("ffName").value.trim();
+            const uid = document.getElementById("ffUid").value.trim();
+
+            if (!name || !uid) {
+                alert("Please enter your Free Fire Name and UID.");
+                return;
+            }
+
+            alert(
+                "Registration form received successfully."
+            );
+
+            closeModal();
+        };
+
+        window.switchTab = function(element) {
+
+            document
+                .querySelectorAll(".nav-item")
+                .forEach(item => item.classList.remove("active"));
+
+            element.classList.add("active");
+        };
+
+        loadTournaments();
+
+    </script>
 
 </body>
-    
 </html>
