@@ -1,658 +1,690 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dream eSports</title>
 
-<title>DREAM ESPORTS</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
 
-<style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
+    body {
+      background: #070b14;
+      color: white;
+      min-height: 100vh;
+      padding-bottom: 80px;
+    }
 
-body{
-    font-family:Arial,sans-serif;
-    background:#080808;
-    color:white;
-    padding-bottom:80px;
-}
+    header {
+      padding: 22px 18px;
+      background: linear-gradient(135deg, #111827, #070b14);
+      border-bottom: 1px solid #202938;
+    }
 
-.header{
-    padding:20px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    background:#111;
-    border-bottom:1px solid #333;
-}
+    .logo {
+      font-size: 26px;
+      font-weight: bold;
+      color: #00e5ff;
+    }
 
-.logo{
-    font-size:22px;
-    font-weight:800;
-}
+    .subtitle {
+      margin-top: 6px;
+      color: #8d98aa;
+      font-size: 13px;
+    }
 
-.logo span{
-    color:#f5b400;
-}
+    .screen {
+      display: none;
+    }
 
-.wallet{
-    background:#1b1b1b;
-    padding:9px 14px;
-    border-radius:20px;
-    font-weight:bold;
-}
+    .screen.active {
+      display: block;
+    }
 
-.hero{
-    margin:18px;
-    padding:25px 20px;
-    border-radius:18px;
-    background:linear-gradient(135deg,#302500,#111);
-    border:1px solid #665000;
-}
+    .section-title {
+      padding: 22px 18px 12px;
+      font-size: 20px;
+      font-weight: bold;
+    }
 
-.hero small{
-    color:#f5b400;
-    font-weight:bold;
-}
+    #tournamentList {
+      padding: 0 15px;
+    }
 
-.hero h1{
-    margin-top:8px;
-    font-size:27px;
-}
+    .tournament-card {
+      background: linear-gradient(145deg, #111827, #0c1220);
+      border: 1px solid #202b3d;
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 15px;
+    }
 
-.hero p{
-    margin-top:8px;
-    color:#aaa;
-    font-size:13px;
-}
+    .tournament-name {
+      font-size: 19px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
 
-.section{
-    padding:0 18px;
-}
+    .game-mode {
+      color: #9ca8ba;
+      font-size: 13px;
+      margin-bottom: 15px;
+    }
 
-.section-title{
-    margin:25px 0 15px;
-    font-size:20px;
-}
+    .status {
+      display: inline-block;
+      background: rgba(0, 229, 255, 0.12);
+      color: #00e5ff;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      margin-bottom: 15px;
+    }
 
-#tournamentList{
-    display:flex;
-    flex-direction:column;
-    gap:15px;
-}
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
 
-.card{
-    background:#121212;
-    border:1px solid #303030;
-    border-radius:17px;
-    padding:17px;
-}
+    .info-box {
+      background: #0a101c;
+      padding: 10px;
+      border-radius: 10px;
+    }
 
-.card-top{
-    display:flex;
-    justify-content:space-between;
-    gap:10px;
-}
+    .info-label {
+      color: #7f8b9d;
+      font-size: 11px;
+      margin-bottom: 4px;
+    }
 
-.name{
-    font-size:19px;
-    font-weight:bold;
-}
+    .info-value {
+      font-size: 14px;
+      font-weight: bold;
+    }
 
-.mode{
-    color:#999;
-    margin-top:6px;
-    font-size:13px;
-}
+    .join-btn {
+      width: 100%;
+      border: none;
+      padding: 13px;
+      border-radius: 12px;
+      background: linear-gradient(90deg, #00c6ff, #0072ff);
+      color: white;
+      font-size: 15px;
+      font-weight: bold;
+    }
 
-.status{
-    color:#f5b400;
-    background:#211c08;
-    border-radius:20px;
-    padding:6px 10px;
-    font-size:11px;
-    font-weight:bold;
-    height:max-content;
-}
+    .message {
+      text-align: center;
+      color: #8d98aa;
+      padding: 35px 15px;
+      font-size: 14px;
+    }
 
-.details{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-    margin-top:16px;
-}
+    .page-box {
+      margin: 18px 15px;
+      padding: 20px;
+      background: #111827;
+      border: 1px solid #202b3d;
+      border-radius: 18px;
+    }
 
-.detail{
-    background:#1b1b1b;
-    border-radius:10px;
-    padding:11px;
-}
+    .page-box h2 {
+      margin-bottom: 10px;
+    }
 
-.label{
-    display:block;
-    color:#777;
-    font-size:10px;
-    margin-bottom:5px;
-}
+    .page-box p {
+      color: #9ca8ba;
+      line-height: 1.6;
+      font-size: 14px;
+    }
 
-.value{
-    font-size:13px;
-    font-weight:bold;
-}
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 68px;
+      background: #0b111d;
+      border-top: 1px solid #202938;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 100;
+    }
 
-.join{
-    width:100%;
-    margin-top:15px;
-    padding:13px;
-    border:0;
-    border-radius:11px;
-    background:#f5b400;
-    color:#000;
-    font-weight:800;
-    font-size:14px;
-}
+    .nav-item {
+      color: #7f8b9d;
+      text-align: center;
+      font-size: 11px;
+      cursor: pointer;
+    }
 
-.loading,
-.empty,
-.error{
-    text-align:center;
-    padding:30px 15px;
-    background:#121212;
-    border:1px solid #292929;
-    border-radius:15px;
-    color:#999;
-}
+    .nav-item.active {
+      color: #00e5ff;
+    }
 
-.error{
-    color:#ff7777;
-}
+    .nav-icon {
+      font-size: 20px;
+      display: block;
+      margin-bottom: 3px;
+    }
 
-.bottom{
-    position:fixed;
-    bottom:0;
-    left:0;
-    right:0;
-    height:70px;
-    background:#101010;
-    border-top:1px solid #292929;
-    display:flex;
-    justify-content:space-around;
-    align-items:center;
-}
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
 
-.nav{
-    text-align:center;
-    color:#777;
-    font-size:11px;
-}
+    .modal-box {
+      width: 100%;
+      max-width: 380px;
+      background: #111827;
+      border: 1px solid #26344a;
+      border-radius: 18px;
+      padding: 22px;
+    }
 
-.nav.active{
-    color:#f5b400;
-}
+    .modal-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
 
-.icon{
-    font-size:20px;
-    margin-bottom:4px;
-}
+    .modal-text {
+      color: #9ca8ba;
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
 
-.modal{
-    display:none;
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.8);
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-}
-
-.modal-box{
-    width:100%;
-    max-width:400px;
-    background:#161616;
-    border:1px solid #333;
-    border-radius:18px;
-    padding:22px;
-}
-
-.modal-box h2{
-    margin-bottom:15px;
-}
-
-input{
-    width:100%;
-    padding:13px;
-    margin-bottom:10px;
-    border-radius:10px;
-    border:1px solid #333;
-    background:#0b0b0b;
-    color:white;
-}
-
-.buttons{
-    display:flex;
-    gap:10px;
-}
-
-.buttons button{
-    flex:1;
-    padding:12px;
-    border:0;
-    border-radius:10px;
-    font-weight:bold;
-}
-
-.cancel{
-    background:#333;
-    color:white;
-}
-
-.confirm{
-    background:#f5b400;
-    color:#000;
-}
-</style>
+    .close-btn {
+      width: 100%;
+      border: none;
+      padding: 12px;
+      border-radius: 10px;
+      background: #202938;
+      color: white;
+    }
+  </style>
 </head>
 
 <body>
 
-<header class="header">
-    <div class="logo">
-        DREAM <span>ESPORTS</span>
-    </div>
-
-    <div class="wallet">
-        ₹<span id="balance">150</span>
-    </div>
-</header>
+  <header>
+    <div class="logo">Dream eSports</div>
+    <div class="subtitle">Free Fire Tournament Platform</div>
+  </header>
 
 
-<section class="hero">
-    <small>FREE FIRE ESPORTS</small>
-    <h1>Play. Compete. Win.</h1>
-    <p>Join tournaments and compete with players.</p>
-</section>
+  <!-- HOME -->
 
-
-<section class="section">
+  <div id="homeScreen" class="screen active">
 
     <div class="section-title">
-        Available Tournaments
+      Upcoming Tournaments
     </div>
 
     <div id="tournamentList">
-        <div class="loading">
-            Loading tournaments...
-        </div>
+      <div class="message">
+        Loading tournaments...
+      </div>
     </div>
 
-</section>
+  </div>
 
 
-<div class="bottom">
+  <!-- MATCHES -->
 
-    <div class="nav active">
-        <div class="icon">⌂</div>
-        Home
+  <div id="matchesScreen" class="screen">
+
+    <div class="section-title">
+      Matches
     </div>
 
-    <div class="nav">
-        <div class="icon">⚔</div>
-        Matches
+    <div class="page-box">
+
+      <h2>🎮 Tournament Matches</h2>
+
+      <p>
+        Your upcoming and available tournament matches
+        will appear here.
+      </p>
+
     </div>
 
-    <div class="nav">
-        <div class="icon">◉</div>
-        Wallet
+  </div>
+
+
+  <!-- WALLET -->
+
+  <div id="walletScreen" class="screen">
+
+    <div class="section-title">
+      Wallet
     </div>
 
-    <div class="nav">
-        <div class="icon">?</div>
-        Support
+    <div class="page-box">
+
+      <h2>💰 Wallet</h2>
+
+      <p>
+        Wallet section is ready for the app interface.
+        Balance and other wallet features can be connected
+        later.
+      </p>
+
     </div>
 
-</div>
+  </div>
 
 
-<div class="modal" id="joinModal">
+  <!-- SUPPORT -->
+
+  <div id="supportScreen" class="screen">
+
+    <div class="section-title">
+      Support
+    </div>
+
+    <div class="page-box">
+
+      <h2>💬 Support</h2>
+
+      <p>
+        Need help with Dream eSports?
+        Support information will appear here.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- BOTTOM NAV -->
+
+  <div class="bottom-nav">
+
+    <div class="nav-item active"
+         onclick="showScreen('home')">
+
+      <span class="nav-icon">⌂</span>
+      Home
+
+    </div>
+
+
+    <div class="nav-item"
+         onclick="showScreen('matches')">
+
+      <span class="nav-icon">🎮</span>
+      Matches
+
+    </div>
+
+
+    <div class="nav-item"
+         onclick="showScreen('wallet')">
+
+      <span class="nav-icon">💰</span>
+      Wallet
+
+    </div>
+
+
+    <div class="nav-item"
+         onclick="showScreen('support')">
+
+      <span class="nav-icon">💬</span>
+      Support
+
+    </div>
+
+  </div>
+
+
+  <!-- JOIN MODAL -->
+
+  <div class="modal" id="joinModal">
 
     <div class="modal-box">
 
-        <h2>Join Tournament</h2>
+      <div class="modal-title" id="modalTitle">
+        Tournament
+      </div>
 
-        <input
-            id="ffName"
-            type="text"
-            placeholder="Free Fire In-Game Name"
-        >
+      <div class="modal-text">
+        Tournament details and registration will be
+        connected here.
+      </div>
 
-        <input
-            id="ffUid"
-            type="text"
-            placeholder="Free Fire UID"
-        >
+      <button class="close-btn"
+              onclick="closeModal()">
 
-        <div class="buttons">
+        Close
 
-            <button
-                class="cancel"
-                onclick="closeModal()"
-            >
-                Cancel
-            </button>
-
-            <button
-                class="confirm"
-                onclick="confirmJoin()"
-            >
-                Join
-            </button>
-
-        </div>
+      </button>
 
     </div>
 
-</div>
+  </div>
 
 
-<!-- FIREBASE -->
+  <script type="module">
 
-<script type="module">
+    import { initializeApp }
+      from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-
-import {
-    getFirestore,
-    collection,
-    getDocs
-}
-from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+    import {
+      getFirestore,
+      collection,
+      getDocs
+    }
+      from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 
-const firebaseConfig = {
+    const firebaseConfig = {
 
-    apiKey:
-    "AIzaSyAeZnZ4tNZ7qYc0jfRdBq4J_Eahop37Qn4",
+      apiKey:
+        "AIzaSyAeZnZ4tNZ7qY0cjfRdBq4J_Eahop37Qn4",
 
-    authDomain:
-    "dream-esports-51780.firebaseapp.com",
+      authDomain:
+        "dream-esports-51780.firebaseapp.com",
 
-    projectId:
-    "dream-esports-51780",
+      projectId:
+        "dream-esports-51780",
 
-    storageBucket:
-    "dream-esports-51780.firebasestorage.app",
+      storageBucket:
+        "dream-esports-51780.firebasestorage.app",
 
-    messagingSenderId:
-    "959473187247",
+      messagingSenderId:
+        "959473187247",
 
-    appId:
-    "1:959473187247:web:11c11f1a5f810dc4fcd75a",
+      appId:
+        "1:959473187247:web:11c11f1a5f810dc4fcd75a",
 
-    measurementId:
-    "G-37FE1WPFXG"
-};
+      measurementId:
+        "G-37FE1WPFXG"
 
-
-const app = initializeApp(firebaseConfig);
-
-const db = getFirestore(app);
+    };
 
 
-/* LOAD TOURNAMENTS */
+    const app =
+      initializeApp(firebaseConfig);
 
-async function loadTournaments(){
-
-    const list =
-    document.getElementById("tournamentList");
+    const db =
+      getFirestore(app);
 
 
-    try{
+    // LOAD TOURNAMENTS FROM FIREBASE
 
-        list.innerHTML =
-        '<div class="loading">Loading tournaments...</div>';
+    async function loadTournaments() {
 
+      const list =
+        document.getElementById("tournamentList");
+
+      try {
 
         const snapshot =
-        await getDocs(
-            collection(db,"tournaments")
-        );
+          await getDocs(
+            collection(db, "Tournaments")
+          );
 
 
-        if(snapshot.empty){
+        if (snapshot.empty) {
 
-            list.innerHTML =
-            '<div class="empty">No tournaments available</div>';
+          list.innerHTML =
+            '<div class="message">No tournament available</div>';
 
-            return;
+          return;
+
         }
 
 
         list.innerHTML = "";
 
 
-        snapshot.forEach((doc)=>{
+        snapshot.forEach((doc) => {
 
-            const data = doc.data();
+          const data = doc.data();
 
 
-            const name =
+          const name =
             data.Name || "Unnamed Tournament";
 
-
-            const game =
+          const game =
             data.Game || "Free Fire";
 
-
-            const mode =
+          const mode =
             data.Mode || "1 VS 1";
 
-
-            const date =
+          const date =
             data.Date || "Not set";
 
-
-            const time =
+          const time =
             data.Time || "Not set";
 
-
-            const players =
+          const players =
             data.Players ?? 0;
 
-
-            const maxPlayers =
+          const maxPlayers =
             data.Maxplayers ?? 0;
 
-
-            const entryFee =
+          const entryFee =
             data.entryfee ?? 0;
 
-
-            const status =
+          const status =
             data["Status "] ||
             data.Status ||
             "Open";
 
 
-            const card =
+          const card =
             document.createElement("div");
 
+          card.className =
+            "tournament-card";
 
-            card.className = "card";
 
+          card.innerHTML = `
 
-            card.innerHTML = `
+            <div class="tournament-name">
+              ${name}
+            </div>
 
-                <div class="card-top">
+            <div class="game-mode">
+              ${game} • ${mode}
+            </div>
 
-                    <div>
+            <div class="status">
+              ${status}
+            </div>
 
-                        <div class="name">
-                            ${name}
-                        </div>
+            <div class="info-grid">
 
-                        <div class="mode">
-                            ${game} • ${mode}
-                        </div>
-
-                    </div>
-
-                    <div class="status">
-                        ${status}
-                    </div>
-
+              <div class="info-box">
+                <div class="info-label">
+                  DATE
                 </div>
 
-
-                <div class="details">
-
-                    <div class="detail">
-
-                        <span class="label">
-                            DATE
-                        </span>
-
-                        <span class="value">
-                            ${date}
-                        </span>
-
-                    </div>
+                <div class="info-value">
+                  ${date}
+                </div>
+              </div>
 
 
-                    <div class="detail">
-
-                        <span class="label">
-                            TIME
-                        </span>
-
-                        <span class="value">
-                            ${time}
-                        </span>
-
-                    </div>
-
-
-                    <div class="detail">
-
-                        <span class="label">
-                            PLAYERS
-                        </span>
-
-                        <span class="value">
-                            ${players}/${maxPlayers}
-                        </span>
-
-                    </div>
-
-
-                    <div class="detail">
-
-                        <span class="label">
-                            ENTRY
-                        </span>
-
-                        <span class="value">
-                            ₹${entryFee}
-                        </span>
-
-                    </div>
-
+              <div class="info-box">
+                <div class="info-label">
+                  TIME
                 </div>
 
-
-                <button
-                    class="join"
-                    onclick="openJoinModal('${doc.id}')"
-                >
-                    JOIN TOURNAMENT
-                </button>
-
-            `;
+                <div class="info-value">
+                  ${time}
+                </div>
+              </div>
 
 
-            list.appendChild(card);
+              <div class="info-box">
+                <div class="info-label">
+                  PLAYERS
+                </div>
+
+                <div class="info-value">
+                  ${players}/${maxPlayers}
+                </div>
+              </div>
+
+
+              <div class="info-box">
+                <div class="info-label">
+                  ENTRY
+                </div>
+
+                <div class="info-value">
+                  ${entryFee === 0
+                    ? "FREE"
+                    : "₹" + entryFee}
+                </div>
+              </div>
+
+            </div>
+
+
+            <button class="join-btn">
+
+              JOIN TOURNAMENT
+
+            </button>
+
+          `;
+
+
+          const button =
+            card.querySelector(".join-btn");
+
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              openJoinModal(name);
+
+            }
+          );
+
+
+          list.appendChild(card);
 
         });
 
 
-    }catch(error){
+      } catch (error) {
 
-        console.error(
-            "Firestore Error:",
-            error
-        );
+        console.error(error);
 
+        list.innerHTML = `
+          <div class="message">
+            Unable to load tournament.<br><br>
+            Please check Firebase connection and Rules.
+          </div>
+        `;
 
-        list.innerHTML =
-        '<div class="error">Unable to load tournaments</div>';
-
-    }
-
-}
-
-
-loadTournaments();
-
-</script>
-
-
-<script>
-
-let selectedTournament = null;
-
-
-function openJoinModal(id){
-
-    selectedTournament = id;
-
-    document.getElementById("joinModal").style.display =
-    "flex";
-
-}
-
-
-function closeModal(){
-
-    document.getElementById("joinModal").style.display =
-    "none";
-
-}
-
-
-function confirmJoin(){
-
-    const name =
-    document.getElementById("ffName").value.trim();
-
-
-    const uid =
-    document.getElementById("ffUid").value.trim();
-
-
-    if(!name || !uid){
-
-        alert(
-            "Please enter your Free Fire Name and UID."
-        );
-
-        return;
+      }
 
     }
 
 
-    alert(
-        "Registration feature will be connected next."
-    );
+    loadTournaments();
 
 
-    closeModal();
+    // SCREEN NAVIGATION
 
-}
+    window.showScreen =
+      function(screen) {
 
-</script>
+        document
+          .querySelectorAll(".screen")
+          .forEach((item) => {
+
+            item.classList.remove("active");
+
+          });
+
+
+        document
+          .getElementById(
+            screen + "Screen"
+          )
+          .classList.add("active");
+
+
+        document
+          .querySelectorAll(".nav-item")
+          .forEach((item) => {
+
+            item.classList.remove("active");
+
+          });
+
+
+        const buttons =
+          document.querySelectorAll(".nav-item");
+
+
+        if (screen === "home")
+          buttons[0].classList.add("active");
+
+        if (screen === "matches")
+          buttons[1].classList.add("active");
+
+        if (screen === "wallet")
+          buttons[2].classList.add("active");
+
+        if (screen === "support")
+          buttons[3].classList.add("active");
+
+      };
+
+
+    // JOIN MODAL
+
+    window.openJoinModal =
+      function(name) {
+
+        document.getElementById(
+          "modalTitle"
+        ).innerText = name;
+
+
+        document.getElementById(
+          "joinModal"
+        ).style.display = "flex";
+
+      };
+
+
+    window.closeModal =
+      function() {
+
+        document.getElementById(
+          "joinModal"
+        ).style.display = "none";
+
+      };
+
+  </script>
 
 </body>
 </html>
