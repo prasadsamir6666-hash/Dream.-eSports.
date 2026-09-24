@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dream eSports</title>
 
   <style>
@@ -11,6 +11,26 @@
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+    }
+
+    .modal-box {
+      background-color: #fff;
+      margin: 15% auto;
+      padding: 20px;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
     body {
@@ -23,8 +43,6 @@
     button {
       cursor: pointer;
     }
-
-    /* LOGIN */
 
     #loginScreen {
       min-height: 100vh;
@@ -75,8 +93,7 @@
       border-color: #00e5ff;
     }
 
-    .login-btn,
-    .register-btn {
+    .login-btn, .register-btn {
       width: 100%;
       border: none;
       padding: 14px;
@@ -110,13 +127,6 @@
       font-size: 13px;
       margin-top: 18px;
     }
-
-    .auth-switch span {
-      color: #00e5ff;
-      cursor: pointer;
-    }
-
-    /* APP */
 
     #appScreen {
       display: none;
@@ -285,6 +295,7 @@
       text-align: center;
       font-size: 11px;
       cursor: pointer;
+      flex: 1;
     }
 
     .nav-item.active {
@@ -296,788 +307,411 @@
       display: block;
       margin-bottom: 3px;
     }
-
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.75);
-      z-index: 200;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .modal-box {
-      width: 100%;
-      max-width: 380px;
-      background: #111827;
-      border: 1px solid #26344a;
-      border-radius: 18px;
-      padding: 22px;
-    }
-
-    .modal-title {
-      font-size: 20px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    .modal-text {
-      color: #9ca8ba;
-      font-size: 14px;
-      line-height: 1.5;
-      margin-bottom: 20px;
-    }
-
-    .close-btn {
-      width: 100%;
-      border: none;
-      padding: 12px;
-      border-radius: 10px;
-      background: #202938;
-      color: white;
-    }
   </style>
 </head>
 
 <body>
 
-  <!-- LOGIN / REGISTER -->
-
   <div id="loginScreen">
-
     <div class="login-box">
+      <div class="login-logo">Dream eSports</div>
+      <div class="login-subtitle">Free Fire Tournament Platform</div>
 
-      <div class="login-logo">
-        Dream eSports
-      </div>
+      <input id="emailInput" class="input" type="email" placeholder="Email" />
+      <input id="passwordInput" class="input" type="password" placeholder="Password" />
 
-      <div class="login-subtitle">
-        Free Fire Tournament Platform
-      </div>
+      <button id="loginBtn" class="login-btn">LOGIN</button>
+      <button id="registerBtn" class="register-btn" onclick="registerUser()">CREATE ACCOUNT</button>
 
-      <input
-        id="emailInput"
-        class="input"
-        type="email"
-        placeholder="Email"
-      >
-
-      <input
-        id="passwordInput"
-        class="input"
-        type="password"
-        placeholder="Password"
-      >
-
-      <button
-        id="loginBtn"
-        class="login-btn"
-        onclick="loginUser()">
-        LOGIN
-      </button>
-
-      <button
-        id="registerBtn"
-        class="register-btn"
-        onclick="registerUser()">
-        CREATE ACCOUNT
-      </button>
-
-      <div
-        id="authMessage"
-        class="auth-message">
-      </div>
+      <div id="authMessage" class="auth-message"></div>
 
       <div class="auth-switch">
         Firebase Email/Password Authentication
       </div>
-
     </div>
-
   </div>
-
-
-  <!-- APP -->
 
   <div id="appScreen">
-
     <header>
       <div class="logo">Dream eSports</div>
-      <div class="subtitle">
-        Free Fire Tournament Platform
-      </div>
+      <div class="subtitle">Free Fire Tournament Platform</div>
     </header>
 
-
-    <!-- HOME -->
-
     <div id="homeScreen" class="screen active">
-
-      <div class="section-title">
-        Upcoming Tournaments
-      </div>
-
+      <div class="section-title">Upcoming Tournaments</div>
       <div id="tournamentList">
-        <div class="message">
-          Loading tournaments...
-        </div>
+        <div class="message">Loading tournaments...</div>
       </div>
-
     </div>
-
-
-    <!-- MATCHES -->
 
     <div id="matchesScreen" class="screen">
-
-      <div class="section-title">
-        Matches
-      </div>
-
+      <div class="section-title">Matches</div>
       <div class="page-box">
-
         <h2>🎮 Tournament Matches</h2>
-
-        <p>
-          Your upcoming and available tournament matches
-          will appear here.
-        </p>
-
+        <p>Your upcoming and available tournament matches</p>
       </div>
-
     </div>
-
-
-    <!-- WALLET -->
-
+    
     <div id="walletScreen" class="screen">
-
-      <div class="section-title">
-        Wallet
-      </div>
-
+      <div class="section-title">Wallet</div>
       <div class="page-box">
-
         <h2>💰 Wallet</h2>
+        <div class="wallet-card">
+          <h3>Total Balance</h3>
+          <div class="balance-amount" id="walletBalance">₹0</div>
+        </div>
+        
+        <div class="wallet-buttons" style="margin-top: 15px;">
+          <button class="join-btn" onclick="openModal()" style="margin-bottom: 10px;">Add Money</button>
+        </div>
+<button class="join-btn" onclick="openModal('joinModal')" style="margin-top: 10px; background-color: #ff4757;">Withdraw</button>
 
-        <p>
-          Wallet section is ready for the app interface.
-          Balance and other wallet features can be connected
-          later.
-        </p>
-
+        <div class="qr-section" style="margin-top: 20px; text-align: center;">
+          <h3>Scan & Pay</h3>
+          <p>UPI ID: <b>7980437592@fam</b></p>
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=7980437592@fam" alt="QR Code" style="margin-top: 10px; border: 2px solid #fff; border-radius: 8px;" />
+        </div>
       </div>
-
     </div>
-
-
-    <!-- SUPPORT / PROFILE -->
 
     <div id="supportScreen" class="screen">
-
-      <div class="section-title">
-        Profile
-      </div>
-
+      <div class="section-title">Profile</div>
       <div class="page-box">
-
         <h2>👤 Account</h2>
-
-        <p>
-          Logged in as:
-        </p>
-
-        <div
-          id="userEmail"
-          class="user-email">
-          Loading...
-        </div>
-
-        <button
-          class="logout-btn"
-          onclick="logoutUser()">
-          LOGOUT
-        </button>
-
+        <p>Logged in as:</p>
+        <div id="userEmail" class="user-email">Loading...</div>
+        <button class="logout-btn" onclick="logoutUser()">LOGOUT</button>
       </div>
-
     </div>
-
-
-    <!-- BOTTOM NAV -->
 
     <div class="bottom-nav">
-
-      <div
-        class="nav-item active"
-        onclick="showScreen('home')">
-
+      <div class="nav-item active" onclick="showScreen('home')">
         <span class="nav-icon">⌂</span>
         Home
-
       </div>
 
-      <div
-        class="nav-item"
-        onclick="showScreen('matches')">
-
+      <div class="nav-item" onclick="showScreen('matches')">
         <span class="nav-icon">🎮</span>
         Matches
-
       </div>
 
-      <div
-        class="nav-item"
-        onclick="showScreen('wallet')">
-
+      <div class="nav-item" onclick="showScreen('wallet')">
         <span class="nav-icon">💰</span>
         Wallet
-
       </div>
 
-      <div
-        class="nav-item"
-        onclick="showScreen('support')">
-
+      <div class="nav-item" onclick="showScreen('support')">
         <span class="nav-icon">👤</span>
         Profile
-
       </div>
-
     </div>
-
   </div>
-
-
-  <!-- JOIN MODAL -->
 
   <div class="modal" id="joinModal">
-
     <div class="modal-box">
-
-      <div
-        class="modal-title"
-        id="modalTitle">
-        Tournament
-      </div>
-
-      <div class="modal-text">
-        Tournament details and registration will be
-        connected here.
-      </div>
-
-      <button
-        class="close-btn"
-        onclick="closeModal()">
-
-        Close
-
-      </button>
-
+        <h3 class="modal-title">Withdraw Amount</h3>
+        <p class="modal-text">Enter withdrawal amount and bank details</p>
+        <input type="number" id="withdrawAmount" placeholder="Enter amount" style="width: 100%; padding: 10px; margin-bottom: 10px;">
+        <input type="text" id="bankDetails" placeholder="Enter bank account details" style="width: 100%; padding: 10px; margin-bottom: 10px;">
+        <div class="modal-buttons">
+            <button class="join-btn" onclick="submitWithdrawal()">Submit</button>
+            <button class="close-btn" onclick="closeModal()">Cancel</button>
+        </div>
     </div>
+</div>
 
+
+  <div class="modal" id="addMoneyModal">
+  <div class="modal-box">
+    <div class="modal-title">Add Money</div>
+    <div class="modal-text">Enter amount to add:</div>
+    <input type="number" id="addMoneyAmount" class="input" placeholder="Enter amount" />
+    <button class="join-btn" onclick="initiatePayment()" style="margin-top: 10px; background: #28a745;">Pay Now</button>
+    <button class="join-btn" onclick="closeAddMoneyModal()" style="margin-top: 10px;">Cancel</button>
   </div>
+</div>
 
 
   <script type="module">
-
-    import { initializeApp }
-      from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
     import {
       getFirestore,
       collection,
-      getDocs
-    }
-      from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
-
+      getDocs,
+      doc,
+      runTransaction
+    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
     import {
       getAuth,
-      onAuthStateChanged,
       signInWithEmailAndPassword,
       createUserWithEmailAndPassword,
-      signOut
+      signOut,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+window.initiatePayment = async function() {
+  const amountInput = document.getElementById("addMoneyAmount");
+  const amount = amountInput.value;
+function submitWithdrawal() {
+    const amount = document.getElementById('withdrawAmount').value;
+    const bankDetails = document.getElementById('bankDetails').value;
+    
+    if (!amount || !bankDetails) {
+        alert('Please fill in all details.');
+        return;
     }
-      from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+    
+    // You can add your backend submission logic here
+    alert('Withdrawal request submitted successfully!');
+    closeModal();
+}
 
+  if (!amount || amount <= 0) {
+    alert("Please enter a valid amount");
+    return;
+  }
 
-    /* FIREBASE CONFIG */
+  const orderId = "ORDER_" + Date.now();
 
-    const firebaseConfig = {
-  apiKey: "AIzaSyAeZnZ4tNZ7qYc0jfRdBq4J_Eahop37Qn4",
-  authDomain: "dream-esports-51780.firebaseapp.com",
-  projectId: "dream-esports-51780",
-  storageBucket: "dream-esports-51780.firebasestorage.app",
-  messagingSenderId: "959473187247",
-  appId: "1:959473187247:web:ba4a80a6da5b52d5fcd75a",
-  measurementId: "G-DP6X3STGN0"
-};
-
-      
-  
-
-  
-
-  const app =
-      initializeApp(firebaseConfig);
-
-    const db =
-      getFirestore(app);
-
-    const auth =
-      getAuth(app);
-
-
-    /* AUTH STATE */
-
-    onAuthStateChanged(auth, (user) => {
-
-      if (user) {
-
-        document.getElementById(
-          "loginScreen"
-        ).style.display = "none";
-
-        document.getElementById(
-          "appScreen"
-        ).style.display = "block";
-
-        document.getElementById(
-          "userEmail"
-        ).innerText = user.email;
-
-        loadTournaments();
-
-      } else {
-
-        document.getElementById(
-          "loginScreen"
-        ).style.display = "flex";
-
-        document.getElementById(
-          "appScreen"
-        ).style.display = "none";
-
-      }
-
+  try {
+    const response = await fetch('https://szgqpdwslpmmlrpawapq.supabase.co/functions/v1/smooth-worker', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer sb_publishable_6W6QieuEX9RAFKGdKXqDnA_K3eDBDmA',
+        'apikey': 'sb_publishable_6W6QieuEX9RAFKGdKXqDnA_K3eDBDmA'
+      },
+      body: JSON.stringify({
+        amount: amount,
+        order_id: orderId
+      })
     });
 
+    const data = await response.json();
 
-    /* LOGIN */
+    if (data.payment_url) {
+      window.location.href = data.payment_url;
+    } else { 
+      alert(JSON.stringify(data));
 
-    window.loginUser = async function() {
+      alert("Payment initiated successfully!");
+    }
+  } catch (error) {
+    console.error("Payment error:", error);
+    alert("Payment request failed. Please try again.");
+  }
+};
 
-      const email =
-        document.getElementById(
-          "emailInput"
-        ).value.trim();
-
-      const password =
-        document.getElementById(
-          "passwordInput"
-        ).value;
-
-      const message =
-        document.getElementById(
-          "authMessage"
-        );
-
-
-      message.innerText = "";
-
-
-      if (!email || !password) {
-
-        message.innerText =
-          "Please enter email and password.";
-
-        return;
-
-      }
-
-
-      try {
-
-        await signInWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
-
-      } catch (error) {
-
-        console.error(error);
-
-        if (error.code ===
-          "auth/invalid-credential") {
-
-          message.innerText =
-            "Email or password is incorrect.";
-
-        } else {
-
-          message.innerText =
-            error.message;
-
-        }
-
-      }
-
+    const firebaseConfig = {
+      apiKey: "AIzaSyAeZnZ4tNZ7qYc0jfRdBq4J_Eahop37Qn4",
+      authDomain: "dream-esports-51780.firebaseapp.com",
+      projectId: "dream-esports-51780",
+      storageBucket: "dream-esports-51780.firebasestorage.app",
+      messagingSenderId: "959473187247",
+      appId: "1:959473187247:web:ba4a80a6da5b52d5fcd75a",
+      measurementId: "G-DP6X3STGN0"
     };
 
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
 
-    /* REGISTER */
+    window.showScreen = function(name) {
+      const screens = document.querySelectorAll(".screen");
+      screens.forEach(screen => screen.classList.remove("active"));
 
-    window.registerUser = async function() {
+      const navItems = document.querySelectorAll(".nav-item");
+      navItems.forEach(item => item.classList.remove("active"));
 
-      const email =
-        document.getElementById(
-          "emailInput"
-        ).value.trim();
+      const target = document.getElementById(name + "Screen");
+      if (target) target.classList.add("active");
 
-      const password =
-        document.getElementById(
-          "passwordInput"
-        ).value;
+      const selectedNav = Array.from(navItems).find(item => {
+        const text = item.textContent.trim().toLowerCase();
+        return text.includes(name);
+      });
 
-      const message =
-        document.getElementById(
-          "authMessage"
-        );
+      if (selectedNav) {
+        selectedNav.classList.add("active");
+      }
+    };
 
+    window.openJoinModal = function(name) {
+      const modal = document.getElementById("joinModal");
+      const title = document.getElementById("modalTitle");
+      const text = document.getElementById("modalText");
+      
+      title.textContent = name;
+      text.textContent = "You are joining " + name;
+      modal.style.display = "flex";
+    };
 
-      message.innerText = "";
+    window.closeModal = function() {
+      document.getElementById("joinModal").style.display = "none";
+    };
 
+    window.openModal = function() {
+      document.getElementById('addMoneyModal').style.display = 'flex';
+    };
+
+    window.closeAddMoneyModal = function() {
+      document.getElementById('addMoneyModal').style.display = 'none';
+    };
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        document.getElementById("loginScreen").style.display = "none";
+        document.getElementById("appScreen").style.display = "block";
+        document.getElementById("userEmail").innerText = user.email;
+        loadTournaments();
+      } else {
+        document.getElementById("loginScreen").style.display = "flex";
+        document.getElementById("appScreen").style.display = "none";
+      }
+    });
+
+    window.loginUser = async function () {
+      console.log('Login button clicked');
+
+      const emailInput = document.getElementById("emailInput");
+      const passwordInput = document.getElementById("passwordInput");
+      const message = document.getElementById("authMessage");
+
+      if (!emailInput || !passwordInput) return;
+
+      const email = emailInput.value.trim();
+      const password = passwordInput.value;
+
+      if (message) message.innerText = "";
 
       if (!email || !password) {
-
-        message.innerText =
-          "Enter email and password first.";
-
+        if (message) message.innerText = "Please enter email and password.";
         return;
-
       }
 
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+      } catch (error) {
+        console.error(error);
+        if (message) {
+          if (error.code === "auth/invalid-credential" || error.code === "auth/user-not-found" || error.code === "auth/wrong-password") {
+            message.innerText = "Email or password is incorrect.";
+          } else {
+            message.innerText = error.message;
+          }
+        }
+      }
+    };
+
+    window.registerUser = async function () {
+      const email = document.getElementById("emailInput").value.trim();
+      const password = document.getElementById("passwordInput").value;
+      const message = document.getElementById("authMessage");
+
+      if (message) message.innerText = "";
+
+      if (!email || !password) {
+        if (message) message.innerText = "Enter email and password first.";
+        return;
+      }
 
       if (password.length < 6) {
-
-        message.innerText =
-          "Password must be at least 6 characters.";
-
+        if (message) message.innerText = "Password must be at least 6 characters.";
         return;
-
       }
-
 
       try {
-
-        await createUserWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
-
+        await createUserWithEmailAndPassword(auth, email, password);
       } catch (error) {
-
         console.error(error);
-
-        message.innerText =
-          error.message;
-
+        if (message) message.innerText = error.message;
       }
-
     };
 
-
-    /* LOGOUT */
-
-    window.logoutUser = async function() {
-
+    window.logoutUser = async function () {
       try {
-
         await signOut(auth);
-
       } catch (error) {
-
         console.error(error);
-
       }
-
     };
-
-
-    /* LOAD TOURNAMENTS */
 
     async function loadTournaments() {
+      const list = document.getElementById("tournamentList");
 
-      const list =
-        document.getElementById(
-          "tournamentList"
-        );
+      if (!list) return;
+
+      list.innerHTML = '<div class="message">Loading tournaments...</div>';
 
       try {
-
-        const snapshot =
-          await getDocs(
-            collection(
-              db,
-              "Tournaments"
-            )
-          );
-
+        const snapshot = await getDocs(collection(db, "Tournaments"));
 
         if (snapshot.empty) {
-
-          list.innerHTML =
-            '<div class="message">No tournament available</div>';
-
+          list.innerHTML = '<div class="message">No tournament available</div>';
           return;
-
         }
-
 
         list.innerHTML = "";
 
+        snapshot.forEach((tournamentDoc) => {
+          const data = tournamentDoc.data();
 
-        snapshot.forEach((doc) => {
+          const name = data.Name || "Unnamed Tournament";
+          const game = data.Game || "Free Fire";
+          const mode = data.Mode || "1 VS 1";
+          const date = data.Date || "Not set";
+          const time = data.Time || "Not set";
+          const players = data.Players ?? 0;
+          const maxPlayers = data.Maxplayers ?? 0;
+          const entryFee = data.entryfee ?? 0;
+          const status = data["Status "] || data.Status || "Open";
 
-          const data =
-            doc.data();
-
-
-          const name =
-            data.Name ||
-            "Unnamed Tournament";
-
-          const game =
-            data.Game ||
-            "Free Fire";
-
-          const mode =
-            data.Mode ||
-            "1 VS 1";
-
-          const date =
-            data.Date ||
-            "Not set";
-
-          const time =
-            data.Time ||
-            "Not set";
-
-          const players =
-            data.Players ?? 0;
-
-          const maxPlayers =
-            data.Maxplayers ?? 0;
-
-          const entryFee =
-            data.entryfee ?? 0;
-
-          const status =
-            data["Status "] ||
-            data.Status ||
-            "Open";
-
-
-          const card =
-            document.createElement(
-              "div"
-            );
-
-          card.className =
-            "tournament-card";
-
+          const card = document.createElement("div");
+          card.className = "tournament-card";
 
           card.innerHTML = `
-
-            <div class="tournament-name">
-              ${name}
-            </div>
-
-            <div class="game-mode">
-              ${game} • ${mode}
-            </div>
-
-            <div class="status">
-              ${status}
-            </div>
-
+            <div class="tournament-name">${name}</div>
+            <div class="game-mode">${game} • ${mode}</div>
+            <div class="status">${status}</div>
             <div class="info-grid">
-
               <div class="info-box">
-                <div class="info-label">
-                  DATE
-                </div>
-
-                <div class="info-value">
-                  ${date}
-                </div>
+                <div class="info-label">DATE & TIME</div>
+                <div class="info-value">${date} ${time}</div>
               </div>
-
               <div class="info-box">
-                <div class="info-label">
-                  TIME
-                </div>
-
-                <div class="info-value">
-                  ${time}
-                </div>
+                <div class="info-label">PLAYERS</div>
+                <div class="info-value">${players}/${maxPlayers}</div>
               </div>
-
               <div class="info-box">
-                <div class="info-label">
-                  PLAYERS
-                </div>
-
-                <div class="info-value">
-                  ${players}/${maxPlayers}
-                </div>
+                <div class="info-label">ENTRY</div>
+                <div class="info-value">${entryFee}</div>
               </div>
-
-              <div class="info-box">
-                <div class="info-label">
-                  ENTRY
-                </div>
-
-                <div class="info-value">
-                  ${
-                    entryFee === 0
-                    ? "FREE"
-                    : "₹" + entryFee
-                  }
-                </div>
-              </div>
-
             </div>
-
-            <button class="join-btn">
-              JOIN TOURNAMENT
-            </button>
-
+            <button class="join-btn">JOIN TOURNAMENT</button>
           `;
 
-
-          const button =
-            card.querySelector(
-              ".join-btn"
-            );
-
-
-          button.addEventListener(
-            "click",
-            () => {
-
-              openJoinModal(name);
-
-            }
-          );
-
+          const joinButton = card.querySelector(".join-btn");
+          joinButton.addEventListener("click", () => {
+            openJoinModal(name);
+          });
 
           list.appendChild(card);
-
         });
 
-
       } catch (error) {
-
-        console.error(error);
-
+        console.error("Error loading tournaments:", error);
         list.innerHTML = `
           <div class="message">
-            Unable to load tournament.<br><br>
-            Please check Firebase connection and Rules.
+            Failed to load tournaments.<br>
+            Please try again.
           </div>
         `;
-
       }
-
     }
 
-
-    /* SCREEN NAVIGATION */
-
-    window.showScreen =
-      function(screen) {
-
-        document
-          .querySelectorAll(".screen")
-          .forEach((item) => {
-
-            item.classList.remove(
-              "active"
-            );
-
-          });
-
-
-        document
-          .getElementById(
-            screen + "Screen"
-          )
-          .classList.add("active");
-
-
-        document
-          .querySelectorAll(".nav-item")
-          .forEach((item) => {
-
-            item.classList.remove(
-              "active"
-            );
-
-          });
-
-
-        const buttons =
-          document.querySelectorAll(
-            ".nav-item"
-          );
-
-
-        if (screen === "home")
-          buttons[0].classList.add("active");
-
-        if (screen === "matches")
-          buttons[1].classList.add("active");
-
-        if (screen === "wallet")
-          buttons[2].classList.add("active");
-
-        if (screen === "support")
-          buttons[3].classList.add("active");
-
-      };
-
-
-    /* JOIN MODAL */
-
-    window.openJoinModal =
-      function(name) {
-
-        document.getElementById(
-          "modalTitle"
-        ).innerText = name;
-
-        document.getElementById(
-          "joinModal"
-        ).style.display = "flex";
-
-      };
-
-
-    window.closeModal =
-      function() {
-
-        document.getElementById(
-          "joinModal"
-        ).style.display = "none";
-
-      };
-
+    const loginBtnElement = document.getElementById('loginBtn');
+    if (loginBtnElement) {
+      loginBtnElement.addEventListener('click', window.loginUser);
+    }
   </script>
-
 </body>
 </html>
